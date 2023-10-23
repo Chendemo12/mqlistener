@@ -1,0 +1,10 @@
+#!/bin/bash
+# 安装完成后所需的配置工作, 一个软件包安装或升级完成后, postinst 脚本驱动命令, 启动或重起相应的服务
+
+echo "Running postinst ..."
+
+systemctl disable mqlistener.service
+systemctl enable /opt/apps/lib/systemd/mqlistener.service
+systemctl start mqlistener.service
+
+exit 0

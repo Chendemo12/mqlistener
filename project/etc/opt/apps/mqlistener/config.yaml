@@ -1,0 +1,49 @@
+name: mqlistener
+debug: true
+broker:
+  host: 127.0.0.1
+  port: 7270
+  token: 1111111
+  messageEncrypt: false       # 是否加密消息
+  messageEncryptPlan: token   # 消息加密方案token/no,仅是否加密消息=true时有效
+
+listeners:
+  - topic: DNS_REPORT
+    monitor:
+      where: value
+      onEvent: updated
+      fieldName: ip
+      cmd: echo
+    key:
+      name: time
+      zhCN: 消息创建时间
+      type: string
+    value:
+      fields:
+        - name: domain
+          zhCN: 域名
+          type: string
+        - name: ip
+          zhCN: 域名解析的目标IP地址
+          type: string
+      unmarshalType: json
+
+  - topic: DNS_CHANGED
+    monitor:
+      where: key
+      onEvent: received
+      fieldName:
+      cmd:
+    key:
+      name: time
+      zhCN: 变动时间
+      type: string
+    value:
+      fields:
+        - name: old
+          zhCN: 旧IP地址
+          type: string
+        - name: new
+          zhCN: 新IP地址
+          type: string
+      unmarshalType: json

@@ -1,0 +1,16 @@
+[Unit]
+Description=mqlistener
+After=network.target
+
+[Service]
+Type=simple
+User=root
+Group=root
+Restart=always
+RestartSec=5s
+ExecStart=/opt/apps/bin/mqlistener -conf=/etc/opt/apps/mqlistener/config.yaml
+ExecReload=/opt/apps/bin/mqlistener -conf=/etc/opt/apps/mqlistener/config.yaml
+
+[Install]
+WantedBy=multi-user.target
+

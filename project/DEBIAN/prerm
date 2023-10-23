@@ -1,0 +1,10 @@
+#!/bin/bash
+# 停止一个软件包的相关进程, 要卸载软件包的相关文件前执行
+
+echo "Running prerm ..."
+
+systemctl stop mqlistener.service
+systemctl disable mqlistener.service
+
+exit 0
+
